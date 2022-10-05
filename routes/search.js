@@ -2,7 +2,7 @@ import express from 'express';
 import axios from 'axios';
 import cheerio from 'cheerio';
 
-const conventionString = 'cosplay convention';
+const conventionString = 'upcoming cosplay convention';
 const characterString = 'most popular cosplays';
 const encodedCharacter = encodeURI(characterString);
 const encodedConvention = encodeURI(conventionString);
@@ -82,7 +82,8 @@ router.get('/', async (req, res, next) => {
     try {
         const output = await getConventionInfo();
         const other = await getCharacterInfo();
-        res.status(200).json(output.concat(other))
+        const result = { conventions: output, characters: other }
+        res.status(200).json(result)
     } catch(err) {
         next(err);
     }
