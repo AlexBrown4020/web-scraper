@@ -2,10 +2,8 @@ import express from 'express';
 import axios from 'axios';
 import cheerio from 'cheerio';
 
-const conventionString = 'upcoming cosplay convention';
-const characterString = 'most popular cosplays';
+const characterString = 'most popular cosplay characters';
 const encodedCharacter = encodeURI(characterString);
-const encodedConvention = encodeURI(conventionString);
 const domain = `https://animecons.com/events/`;
 const google = 'https://google.com'
 
@@ -43,16 +41,10 @@ function getCharacterInfo() {
 
         const links = [];
         const titles = [];
-        const snippets = [];
 
-        $('.yuRUbf > a').each((i, el) => {
-            links[i] = $(el).attr('href');
-        });
-        $('.yuRUbf > a > h3').each((i, el) => {
-            titles[i] = $(el).text();
-        });
-        $('.lyLwlc').each((i, el) => {
-            snippets[i] = $(el).text().trim();
+        $('.ZGomKf > img').each((i, el) => {
+            links[i] = $(el).attr('src');
+            titles[i] = $(el).attr('alt');
         });
 
         const result = [];
@@ -60,7 +52,6 @@ function getCharacterInfo() {
             result[i] = {
                 link: links[i],
                 title: titles[i],
-                snippet: snippets[i],
             };
         };
         return result;
