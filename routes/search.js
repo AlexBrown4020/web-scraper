@@ -6,7 +6,8 @@ const conventionString = 'upcoming cosplay convention';
 const characterString = 'most popular cosplays';
 const encodedCharacter = encodeURI(characterString);
 const encodedConvention = encodeURI(conventionString);
-const domain = `http://google.com`;
+const domain = `https://animecons.com/events/`;
+const google = 'https://google.com'
 
 const AXIOS_OPTIONS = {
     headers: {
@@ -15,30 +16,20 @@ const AXIOS_OPTIONS = {
 };
 
 function getConventionInfo() {
-    return axios.get(`${domain}/search?q=${encodedConvention}&hl=en@gl=us`, AXIOS_OPTIONS)
+    return axios.get(`${domain}`)
     .then(function ({ data }) {
         let $ = cheerio.load(data);
 
-        const links = [];
-        const titles = [];
-        const snippets = [];
+        const cons = [];
 
-        $('.yuRUbf > a').each((i, el) => {
-            links[i] = $(el).attr('href');
-        });
-        $('.yuRUbf > a > h3').each((i, el) => {
-            titles[i] = $(el).text();
-        });
-        $('.lyLwlc').each((i, el) => {
-            snippets[i] = $(el).text().trim();
+        $('#ConListTable > tbody > tr').each((i, el) => {
+            cons[i] = $(el).text();
         });
 
         const result = [];
-        for (let i = 0; i < links.length; i++) {
+        for (let i = 0; i < cons.length; i++) {
             result[i] = {
-                link: links[i],
-                title: titles[i],
-                snippet: snippets[i],
+                convention: cons[i],
             };
         };
         return result;
@@ -46,7 +37,7 @@ function getConventionInfo() {
 }
 
 function getCharacterInfo() {
-    return axios.get(`${domain}/search?q=${encodedCharacter}&hl=en@gl=us`, AXIOS_OPTIONS)
+    return axios.get(`${google}/search?q=${encodedCharacter}&hl=en@gl=us`, AXIOS_OPTIONS)
     .then(function ({ data }) {
         let $ = cheerio.load(data);
 
@@ -82,7 +73,7 @@ router.get('/', async (req, res, next) => {
     try {
         const output = await getConventionInfo();
         const other = await getCharacterInfo();
-        const result = { conventions: output, characters: other }
+        const result = { conventions: output, characters: other}
         res.status(200).json(result)
     } catch(err) {
         next(err);
