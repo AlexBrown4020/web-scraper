@@ -42,9 +42,9 @@ function getCharacterInfo() {
         const links = [];
         const titles = [];
 
-        $('.ZGomKf > img').each((i, el) => {
-            links[i] = $(el).attr('src');
-            titles[i] = $(el).attr('alt');
+        $('.ct5Ked').each((i, el) => {
+            links[i] = $(el).attr('href');
+            titles[i] = $(el).attr('data-entityname');
         });
 
         const result = [];
