@@ -21,7 +21,7 @@ function getConventionInfo() {
         const cons = [];
 
         $('#ConListTable > tbody > tr').each((i, el) => {
-            if (cons.length > 20) {
+            if (cons.length > 50) {
                 return false
             }
             cons[i] = $(el).text();
@@ -42,21 +42,18 @@ function getCharacterInfo() {
     .then(function ({ data }) {
         let $ = cheerio.load(data);
 
-        const links = [];
         const titles = [];
 
         $('.ct5Ked').each((i, el) => {
-            if (links.length > 10) {
+            if (titles.length > 30) {
                 return false
             }
-            links[i] = $(el).attr('href');
             titles[i] = $(el).attr('data-entityname');
         });
 
         const result = [];
-        for (let i = 0; i < links.length; i++) {
+        for (let i = 0; i < titles.length; i++) {
             result[i] = {
-                link: links[i],
                 title: titles[i],
             };
         };
