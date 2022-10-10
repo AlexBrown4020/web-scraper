@@ -21,6 +21,9 @@ function getConventionInfo() {
         const cons = [];
 
         $('#ConListTable > tbody > tr').each((i, el) => {
+            if (cons.length > 20) {
+                return false
+            }
             cons[i] = $(el).text();
         });
 
@@ -43,6 +46,9 @@ function getCharacterInfo() {
         const titles = [];
 
         $('.ct5Ked').each((i, el) => {
+            if (links.length > 10) {
+                return false
+            }
             links[i] = $(el).attr('href');
             titles[i] = $(el).attr('data-entityname');
         });
@@ -62,9 +68,9 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
     try {
-        const output = await getConventionInfo();
-        const other = await getCharacterInfo();
-        const result = { conventions: output, characters: other}
+        const conventions = await getConventionInfo();
+        const characters = await getCharacterInfo();
+        const result = {conventions, characters}
         res.status(200).json(result)
     } catch(err) {
         next(err);
