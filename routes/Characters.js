@@ -2,10 +2,8 @@ import express from 'express';
 import axios from 'axios';
 import cheerio from 'cheerio';
 
-const characterString = 'most popular cosplay characters';
-const encodedCharacter = encodeURI(characterString);
-const domain = `https://animecons.com/events/`;
-const google = 'https://google.com'
+const encodedCharacter = encodeURI('most popular cosplay characters');
+const characterURL = 'https://google.com';
 
 const AXIOS_OPTIONS = {
     headers: {
@@ -13,32 +11,9 @@ const AXIOS_OPTIONS = {
     },
 };
 
-function getConventionInfo() {
-    return axios.get(`${domain}`)
-    .then(function ({ data }) {
-        let $ = cheerio.load(data);
-
-        const cons = [];
-
-        $('#ConListTable > tbody > tr').each((i, el) => {
-            if (cons.length > 50) {
-                return false
-            }
-            cons[i] = $(el).text();
-        });
-
-        const result = [];
-        for (let i = 0; i < cons.length; i++) {
-            result[i] = {
-                convention: cons[i],
-            };
-        };
-        return result;
-    }); 
-}
 
 function getCharacterInfo() {
-    return axios.get(`${google}/search?q=${encodedCharacter}&hl=en@gl=us`, AXIOS_OPTIONS)
+    return axios.get(`${characterURL}/search?q=${encodedCharacter}&hl=en@gl=us`, AXIOS_OPTIONS)
     .then(function ({ data }) {
         let $ = cheerio.load(data);
 
@@ -65,10 +40,8 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
     try {
-        const conventions = await getConventionInfo();
         const characters = await getCharacterInfo();
-        const result = {conventions, characters}
-        res.status(200).json(result)
+        res.status(200).json(characters)
     } catch(err) {
         next(err);
     }

@@ -2,7 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
-import searchRoute from './routes/search.js';
+import Convention from './routes/Convention.js';
+import Character from './routes/Characters.js'
 
 const app = express();
 const PORT = process.env.PORT || 8000
@@ -10,7 +11,8 @@ dotenv.config();
 app.use(express.json());
 app.use(cors());
 
-app.use('/search', searchRoute);
+app.use('/conventions', Convention);
+app.use('/characters', Character);
 
 app.use((err,req,res,next) => {
     const errorStatus = err.status || 500;
