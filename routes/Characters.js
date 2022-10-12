@@ -18,18 +18,21 @@ function getCharacterInfo() {
         let $ = cheerio.load(data);
 
         const titles = [];
+        const href = [];
 
         $('.ct5Ked').each((i, el) => {
             if (titles.length > 30) {
                 return false
             }
             titles[i] = $(el).attr('data-entityname');
+            href[i] = $(el).attr('href');
         });
 
         const result = [];
         for (let i = 0; i < titles.length; i++) {
             result[i] = {
                 title: titles[i],
+                href: href[i]
             };
         };
         return result;
