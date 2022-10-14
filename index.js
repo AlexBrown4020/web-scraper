@@ -5,6 +5,10 @@ import cors from 'cors';
 import Convention from './routes/Convention.js';
 import Character from './routes/Characters.js'
 
+const firebaseApp = initializeApp({
+
+})
+
 const app = express();
 const PORT = process.env.PORT || 8000
 dotenv.config();
