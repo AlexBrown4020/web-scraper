@@ -32,7 +32,7 @@ function getCharacterInfo() {
         for (let i = 0; i < titles.length; i++) {
             result[i] = {
                 title: titles[i],
-                href: href[i],
+                href: href[i]
             };
         };
         return result;
