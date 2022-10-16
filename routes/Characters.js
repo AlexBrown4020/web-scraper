@@ -10,22 +10,28 @@ function getCharacterInfo() {
         let $ = cheerio.load(data);
 
         let titles = [];
-        // const href = [];
+        const href = [];
 
         $('h3').each((i, el) => {
             if (titles.length > 10) {
                 return false
             }
             titles[i] = $(el).text();
-            // href[i] = $(el).attr('href');
         });
         titles = titles.splice(1,10);
+
+        $('.size-full').each((i, el) => {
+            if (href.length > 10) {
+                return false
+            }
+            href[i] = $(el).attr('src');
+        });
 
         const result = [];
         for (let i = 0; i < titles.length; i++) {
             result[i] = {
                 title: titles[i],
-                // href: href[i]
+                href: href[i]
             };
         };
         return result;
