@@ -10,7 +10,7 @@ function getCharacterInfo() {
         let $ = cheerio.load(data);
 
         const titles = [];
-        const href = [];
+        // const href = [];
 
         $('h3').each((i, el) => {
             if (titles.length > 10) {
@@ -21,7 +21,7 @@ function getCharacterInfo() {
         });
 
         const result = [];
-        for (let i = 0; i < titles.length; i++) {
+        for (let i = 1; i < titles.length; i++) {
             result[i] = {
                 title: titles[i],
                 // href: href[i]
