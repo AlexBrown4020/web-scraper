@@ -9,7 +9,7 @@ function getCharacterInfo() {
     .then(function ({ data }) {
         let $ = cheerio.load(data);
 
-        const titles = [];
+        let titles = [];
         // const href = [];
 
         $('h3').each((i, el) => {
