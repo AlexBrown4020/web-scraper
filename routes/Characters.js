@@ -13,7 +13,7 @@ function getCharacterInfo() {
         const href = [];
 
         $('h3').each((i, el) => {
-            if (titles.length > 30) {
+            if (titles.length > 10) {
                 return false
             }
             titles[i] = $(el).text();
