@@ -16,7 +16,7 @@ function getCharacterInfo() {
             if (titles.length > 30) {
                 return false
             }
-            titles[i] = $(el).attr('h3');
+            titles[i] = $(el).text();
             // href[i] = $(el).attr('href');
         });
 
