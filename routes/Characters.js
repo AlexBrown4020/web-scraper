@@ -2,37 +2,29 @@ import express from 'express';
 import axios from 'axios';
 import cheerio from 'cheerio';
 
-const encodedCharacter = encodeURI('most popular cosplay characters');
-const characterURL = 'https://google.com';
-
-const AXIOS_OPTIONS = {
-    headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36',
-    },
-};
-
+const characterURL = 'https://www.zavvi.com/blog/features/the-worlds-most-popular-characters-to-cosplay/';
 
 function getCharacterInfo() {
-    return axios.get(`${characterURL}/search?q=${encodedCharacter}&hl=en@gl=us`, AXIOS_OPTIONS)
+    return axios.get(characterURL)
     .then(function ({ data }) {
         let $ = cheerio.load(data);
 
         const titles = [];
         const href = [];
 
-        $('.ct5Ked').each((i, el) => {
+        $('h3').each((i, el) => {
             if (titles.length > 30) {
                 return false
             }
-            titles[i] = $(el).attr('data-entityname');
-            href[i] = $(el).attr('href');
+            titles[i] = $(el).attr('h3');
+            // href[i] = $(el).attr('href');
         });
 
         const result = [];
         for (let i = 0; i < titles.length; i++) {
             result[i] = {
                 title: titles[i],
-                href: href[i]
+                // href: href[i]
             };
         };
         return result;
