@@ -19,9 +19,10 @@ function getCharacterInfo() {
             titles[i] = $(el).text();
             // href[i] = $(el).attr('href');
         });
+        titles = titles.splice(1,10);
 
         const result = [];
-        for (let i = 1; i < titles.length; i++) {
+        for (let i = 0; i < titles.length; i++) {
             result[i] = {
                 title: titles[i],
                 // href: href[i]
