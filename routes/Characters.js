@@ -21,7 +21,7 @@ function getCharacterInfo() {
         titles = titles.splice(1,10);
 
         $('.size-full').each((i, el) => {
-            if (href.length > 10) {
+            if (href.length > 12) {
                 return false
             }
             href[i] = $(el).attr('src');
