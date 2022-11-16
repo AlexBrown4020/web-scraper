@@ -11,11 +11,16 @@ function getConventionInfo() {
 
         const cons = [];
 
-        $('#ConListTable > tbody > tr').each((i, el) => {
+        $('#ConListTable > tbody > tr > td').each((i, el) => {
             if (cons.length > 50) {
                 return false;
             }
-            cons[i] = $(el).text();
+            let output = {};
+            console.log($(el).text());
+            output.title = ($(el).text());
+            output.date = ($(el).next().text());
+            output.location = ($(el).next().next().text());
+            cons.push(output)
         });
 
         const result = [];
