@@ -15,14 +15,18 @@ function getConventionInfo() {
             if (cons.length > 50) {
                 return false
             }
-            cons[i] = $(el).text();
+            let tag = $(el);
+            const info = [];
+            while (tag = tag.next()) {
+                if (tag.length === 0) break;
+                info.push(tag.text())
+            }
+            cons.push(info)
         });
 
         const result = [];
         for (let i = 0; i < cons.length; i++) {
-            result[i] = {
-                convention: cons[i],
-            };
+            result.push(cons[i])
         };
         return result;
     }); 
