@@ -13,20 +13,17 @@ function getConventionInfo() {
 
         $('#ConListTable > tbody > tr').each((i, el) => {
             if (cons.length > 50) {
-                return false
+                return false;
             }
-            let tag = $(el);
-            const info = [];
-            while (tag = tag.next()) {
-                if (tag.length === 0) break;
-                info.push(tag.text())
-            }
-            cons.push(info)
+            cons[i] = $(el).text();
         });
 
         const result = [];
         for (let i = 0; i < cons.length; i++) {
-            result.push(cons[i])
+            result[i] = {
+                convention: cons[i],
+            };
+            result.push(cons);
         };
         return result;
     }); 
@@ -37,7 +34,7 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
     try {
         const conventions = await getConventionInfo();
-        res.status(200).json(conventions)
+        res.status(200).json(conventions);
     } catch(err) {
         next(err);
     }
