@@ -11,24 +11,20 @@ function getConventionInfo() {
 
         const cons = [];
 
-        $('#ConListTable > tbody > tr > td').each((i, el) => {
+
+        $('#ConListTable > tbody > tr').each((i, el) => {
             if (cons.length > 50) {
                 return false;
             }
             let output = {};
-            console.log($(el).text());
-            output.title = ($(el).text());
-            output.date = ($(el).next().text());
-            output.location = ($(el).next().next().text());
+
+            output.title = ($(el).children('td').children('a').text());
+            output.details = ($(el).children('td').next().text());
             cons.push(output)
         });
-
         const result = [];
         for (let i = 0; i < cons.length; i++) {
-            result[i] = {
-                convention: cons[i],
-            };
-            result.push(cons);
+            result.push(cons[i])
         };
         return result;
     }); 
