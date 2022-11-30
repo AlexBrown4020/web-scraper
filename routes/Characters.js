@@ -14,7 +14,7 @@ function getCharacterInfo() {
 
         $('h3').each((i, el) => {
             if (titles.length > 12) {
-                return false
+                return false;
             }
             titles[i] = $(el).text();
         });
@@ -22,7 +22,7 @@ function getCharacterInfo() {
 
         $('.size-full').each((i, el) => {
             if (href.length > 12) {
-                return false
+                return false;
             }
             href[i] = $(el).attr('src');
         });
@@ -43,7 +43,7 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
     try {
         const characters = await getCharacterInfo();
-        res.status(200).json(characters)
+        res.status(200).json(characters);
     } catch(err) {
         next(err);
     }

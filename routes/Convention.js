@@ -20,11 +20,11 @@ function getConventionInfo() {
 
             output.title = ($(el).children('td').children('a').text());
             output.details = ($(el).children('td').next().text());
-            cons.push(output)
+            cons.push(output);
         });
         const result = [];
         for (let i = 0; i < cons.length; i++) {
-            result.push(cons[i])
+            result.push(cons[i]);
         };
         return result;
     }); 
