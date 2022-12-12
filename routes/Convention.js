@@ -16,7 +16,7 @@ function getConventionInfo(limit, page) {
             limit = limit;
         }
         if (!page) {
-            page = 2;
+            page = 1;
         } else {
             page = page;
         }
@@ -38,6 +38,7 @@ function getConventionInfo(limit, page) {
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
+    console.log(req.query)
     try {
         const conventions = await getConventionInfo(req.query.limit, req.query.page);
         res.status(200).json(conventions);
