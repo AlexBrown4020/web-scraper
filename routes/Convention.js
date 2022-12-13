@@ -24,11 +24,13 @@ function getConventionInfo(page) {
             cons.push(output);
         });
         const count = cons.length;
-        const pageCount = count / limit;
+        const pageCount = Math.floor(count / limit);
+        const finalPage = count % limit;
         return {
             pagination: {
                 count,
-                pageCount
+                pageCount,
+                finalPage
             },
             cons
         };
