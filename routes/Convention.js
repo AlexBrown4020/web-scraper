@@ -4,25 +4,17 @@ import cheerio from 'cheerio';
 
 const conventionURL = `https://animecons.com/events/`;
 
-function getConventionInfo(limit, page) {
+function getConventionInfo(page) {
     return axios.get(`${conventionURL}`)
     .then(function ({ data }) {
         let $ = cheerio.load(data);
-
+        const limit = 10;
         const cons = [];
-        if (!limit) {
-            limit = 10;
-        } else {
-            limit = limit;
-        }
         if (!page) {
             page = 1;
         } else {
             page = page;
         }
-
-        let startIndex = (page - 1) * limit;
-        let endIndex = page * limit;
 
         $('#ConListTable > tbody > tr').each((i, el) => {
             let output = {};
@@ -31,16 +23,25 @@ function getConventionInfo(limit, page) {
             output.details = ($(el).children('td').next().text());
             cons.push(output);
         });
-        return cons.slice(startIndex, endIndex);
+        const count = cons.length;
+        const pageCount = Math.floor(count / limit);
+        const finalPage = count % limit;
+        return {
+            pagination: {
+                count,
+                pageCount,
+                finalPage
+            },
+            cons
+        };
     }); 
 }
 
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
-    console.log(req.query)
     try {
-        const conventions = await getConventionInfo(req.query.limit, req.query.page);
+        const conventions = await getConventionInfo(req.query.page);
         res.status(200).json(conventions);
     } catch(err) {
         next(err);
