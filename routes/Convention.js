@@ -26,9 +26,14 @@ function getConventionInfo(page) {
         const count = cons.length;
         const pageCount = Math.floor(count / limit);
         const finalPage = count % limit;
-        const paginationData = {count, pageCount, finalPage}
-        cons.unshift(paginationData)
-        return cons
+        return {
+            pagination: {
+                count,
+                pageCount,
+                finalPage
+            },
+            cons
+        };
     }); 
 }
 
