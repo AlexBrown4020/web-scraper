@@ -26,8 +26,7 @@ function getConventionInfo(page) {
 
         const skip = page * limit
         const count = cons.length;
-        const finalPage = count % limit;
-        const pageCount = finalPage > 0 ? (Math.floor(count / limit) + 1) : Math.floor(count / limit);
+        const pageCount = Math.ceil(count / limit)
 
         cons = cons.slice(skip - 10, skip)
         return {
