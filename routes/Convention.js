@@ -23,9 +23,11 @@ function getConventionInfo(page) {
             output.details = ($(el).children('td').next().text());
             cons.push(output);
         });
+        const skip = (page -1) * limit
         const count = cons.length;
         const pageCount = Math.floor(count / limit);
         const finalPage = count % limit;
+        cons = cons.skip(skip)
         return {
             pagination: {
                 count,
