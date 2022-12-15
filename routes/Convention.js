@@ -9,7 +9,7 @@ function getConventionInfo(page) {
     .then(function ({ data }) {
         let $ = cheerio.load(data);
         const limit = 10;
-        const cons = [];
+        let cons = [];
         if (!page) {
             page = 1;
         } else {
@@ -23,11 +23,11 @@ function getConventionInfo(page) {
             output.details = ($(el).children('td').next().text());
             cons.push(output);
         });
-        const skip = (page -1) * limit
+        const skip = page * limit
         const count = cons.length;
         const pageCount = Math.floor(count / limit);
         const finalPage = count % limit;
-        cons = cons.skip(skip)
+        cons = cons.slice(skip - 10, skip)
         return {
             pagination: {
                 count,
