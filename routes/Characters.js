@@ -18,7 +18,7 @@ function getCharacterInfo() {
             }
             titles[i] = $(el).text();
         });
-        titles = titles.splice(1,10);
+        titles = titles.splice(0,10);
 
         $('.size-full').each((i, el) => {
             if (href.length > 12) {
