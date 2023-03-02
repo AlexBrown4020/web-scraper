@@ -10,7 +10,7 @@ function getCharacterInfo() {
         let $ = cheerio.load(data);
 
         let titles = [];
-        const href = [];
+        const src = [];
 
         $('h3').each((i, el) => {
             if (titles.length > 12) {
@@ -21,17 +21,17 @@ function getCharacterInfo() {
         titles = titles.splice(0,10);
 
         $('.size-full').each((i, el) => {
-            if (href.length > 12) {
+            if (src.length > 9) {
                 return false;
             }
-            href[i] = $(el).attr('src');
+            src[i] = $(el).attr('src');
         });
 
         const result = [];
-        for (let i = 0; i < titles.length; i++) {
+        for (let i = 0; i < src.length; i++) {
             result[i] = {
                 title: titles[i],
-                href: href[i]
+                src: src[i]
             };
         };
         return result;
