@@ -20,15 +20,22 @@ function getConventionInfo(page) {
             let output = {};
 
             output.title = ($(el).children('td').children('a').text());
-            output.details = ($(el).children('td').next().text());
-            cons.push(output);
+            const string = $(el).children('td').next().text()
+            for (let i = string.length; i > 0; i--) {
+                if (!isNaN(parseInt(string[i]))) {
+                  output.date = string.slice(0, i+1);
+                  output.location = string.slice(i+1, string.length);
+                  cons.push(output);
+                  return
+                }
+              } 
         });
 
         const skip = page * limit
         const count = cons.length;
         const pageCount = Math.ceil(count / limit)
 
-        cons = cons.slice(skip - 10, skip)
+        cons = cons.slice(skip - 9, skip)
         return {
             pagination: {
                 count,
