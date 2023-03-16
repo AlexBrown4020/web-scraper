@@ -27,9 +27,9 @@ function getConventionInfo(page) {
               } 
         });
 
-        const skip = page * limit
+        const skip = page * limit;
         const count = cons.length;
-        const pageCount = Math.ceil(count / limit)
+        const pageCount = Math.ceil(count / limit);
 
         cons = cons.slice(skip - 9, skip)
         return {
