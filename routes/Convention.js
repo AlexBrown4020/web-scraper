@@ -8,13 +8,9 @@ function getConventionInfo(page) {
     return axios.get(`${conventionURL}`)
     .then(function ({ data }) {
         let $ = cheerio.load(data);
-        const limit = 10;
+        const limit = 12;
         let cons = [];
-        if (!page) {
-            page = 1;
-        } else {
-            page = page;
-        }
+        page = page ? page : 1;
 
         $('#ConListTable > tbody > tr').each((i, el) => {
             let output = {};
